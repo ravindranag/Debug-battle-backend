@@ -5,6 +5,8 @@ interface IUser {
      regdno: string;
      type: string;
      score: number;
+     code: string;
+     branch: String;
    }
 
 const userSchema = new mongoose.Schema<IUser>({
@@ -12,7 +14,9 @@ const userSchema = new mongoose.Schema<IUser>({
          required: true},
     regdno: {type: String},
      type:{type: String},
-     score:{type:Number}
+     score:{type:Number},
+     code: {type:String},
+     branch: {type:String}
       
 });
 

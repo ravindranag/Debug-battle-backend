@@ -41,6 +41,7 @@ app.post('/auth',async (req,res)=>{
             //already have user in db
             //console.log(profile)
             console.log('user exists');
+            res.send("user exists");
         }
         else
         {
@@ -50,18 +51,40 @@ app.post('/auth',async (req,res)=>{
             username: req.body.username,
             regdno: req.body.regdno,
             type: "",
-            score: 0
+            score: 0,
+            code: "",
+            branch: req.body.branch
           }).save().then((newUser)=>{
                 //console.log(profile)
-                console.log('new user created '+newUser);
+                console.log('new user created ');
               })
+
+              res.send("all done");
           
         }
     })
 
 })
 
-app.get('/getCode',(req,res)=>{
+app.post('/getCode',async (req,res)=>{
+
+  await user.findOne({username: req.body.username}).then((currentUser)=>{
+    if(currentUser)
+    {
+
+        console.log('user exists');
+        // console.log(req.body.code);
+        
+        currentUser.updateOne(
+          
+            { "username" : req.body.username },
+            { $set: { "code" : req.body.code } }
+          
+        );
+        
+    res.send("changed code")
+    }
+})
     
 })
 
