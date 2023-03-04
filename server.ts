@@ -3,6 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import user from './User'
+import user2 from './User2'
 
 dotenv.config()
 
@@ -53,7 +54,47 @@ app.post('/auth',async (req,res)=>{
             type: "",
             score: 0,
             code: "",
-            branch: req.body.branch
+            branch: req.body.branch,
+
+          }).save().then((newUser)=>{
+                //console.log(profile)
+                console.log('new user created ');
+              })
+
+              res.send("all done");
+          
+        }
+    })
+
+})
+
+app.post('/auth2',async (req,res)=>{
+
+  console.log(req);
+  
+
+    await user2.findOne({username: req.body.username}).then((currentUser)=>{
+        if(currentUser)
+        {
+            //already have user in db
+            //console.log(profile)
+            console.log('user exists');
+            res.send("user exists");
+        }
+        else
+        {
+
+          
+             new user2({
+            username: req.body.username,
+            regdno: req.body.regdno,
+            type: "",
+            score: 0,
+            code: "",
+            branch: req.body.branch,
+            username2: req.body.username2,
+            regdno2: req.body.regdno2,
+            branch2: req.body.branch2
           }).save().then((newUser)=>{
                 //console.log(profile)
                 console.log('new user created ');
@@ -68,14 +109,11 @@ app.post('/auth',async (req,res)=>{
 
 app.post('/getCode',async (req,res)=>{
 
-  await user.findOne({username: req.body.username}).then((currentUser)=>{
-    if(currentUser)
-    {
 
-        console.log('user exists');
+
         // console.log(req.body.code);
         
-        currentUser.updateOne(
+        user.updateOne(
           
             { "username" : req.body.username },
             { $set: { "code" : req.body.code } }
@@ -83,8 +121,6 @@ app.post('/getCode',async (req,res)=>{
         );
         
     res.send("changed code")
-    }
-})
     
 })
 
