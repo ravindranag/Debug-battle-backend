@@ -111,9 +111,9 @@ app.post('/getCode',async (req,res)=>{
 
 
 
-        // console.log(req.body.code);
+        console.log(req.body.code);
         
-        user.updateOne(
+        await user.updateOne(
           
             { "username" : req.body.username },
             { $set: { "code" : req.body.code } }
