@@ -9,7 +9,6 @@ interface IUser {
      branch: String;
      username2: string;
      regdno2: string;
-     type2: string;
      code2: string;
      branch2: String;
    }

@@ -98,9 +98,10 @@ app.post('/auth2',async (req,res)=>{
           }).save().then((newUser)=>{
                 //console.log(profile)
                 console.log('new user created ');
+                res.json(newUser._id)
               })
 
-              res.send("all done");
+              
           
         }
     })
@@ -127,19 +128,16 @@ app.post('/getCode',async (req,res)=>{
 
 app.post('/getCode2',async (req,res)=>{
 
+user2.findById(req.body.id).then((currUser)=>{
 
+})
 
   console.log(req.body.code);
   console.log(req.body.username);
+
+
   
-  await user.updateOne(
-    
-      { "username" : req.body.username },
-      { $set: { "score" : req.body.code } }
-    
-  );
-  
-res.send("changed code")
+res.send("got it")
 
 })
 
