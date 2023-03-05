@@ -111,17 +111,36 @@ app.post('/getCode',async (req,res)=>{
 
 
 
-        console.log(req.body.code);
+        console.log(req.body.score);
+        console.log(req.body.username);
         
         await user.updateOne(
           
             { "username" : req.body.username },
-            { $set: { "code" : req.body.code } }
+            { $set: { "score" : req.body.score } }
           
         );
         
     res.send("changed code")
     
+})
+
+app.post('/getCode2',async (req,res)=>{
+
+
+
+  console.log(req.body.code);
+  console.log(req.body.username);
+  
+  await user.updateOne(
+    
+      { "username" : req.body.username },
+      { $set: { "score" : req.body.code } }
+    
+  );
+  
+res.send("changed code")
+
 })
 
 app.listen(5000,()=>{
