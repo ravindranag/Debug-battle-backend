@@ -141,6 +141,6 @@ res.send("got it")
 
 })
 
-app.listen(5000,()=>{
+app.listen(5000 || process.env.PORT,()=>{
     console.log("server is running on 5000")
 })
